@@ -1,0 +1,45 @@
+<form novalidate (ngSubmit)="onSubmit(usuario)" [formGroup]="usuario">
+  <label>
+    <span>Full name</span>
+    <input
+      type="text"
+      name="name"
+      placeholder="Your full name"
+      formControlName="nombre">
+  </label>
+  <div
+    class="error"
+    *ngIf="usuario.get('nombre').hasError('required') && usuario.get('nombre').touched">
+    Nombre es requerido
+  </div>
+  <div
+    class="error"
+    *ngIf="usuario.get('nombre').hasError('minlength') && usuario.get('nombre').touched">
+    Minimo debe contener 2 caracteres
+  </div>
+  <div formGroupName="cuenta">
+    <label>
+      <span>Email address</span>
+      <input
+        type="email"
+        name="email"
+        placeholder="Your email address"
+        formControlName="email">
+    </label>
+    <div class="error" *ngIf="usuario.get('cuenta').get('email').hasError('required') && usuario.get('cuenta').get('email').touched">
+      El correo es requerido
+    </div>
+    <label>
+      <span>Confirm address</span>
+      <input
+        type="email"
+        name="confirm"
+        placeholder="Confirm your email address"
+        formControlName="confirmar">
+    </label>
+    <div class="error" *ngIf="usuario.get('cuenta').get('confirmar').hasError('required') && usuario.get('cuenta').get('confirmar').touched">
+      Es requerido confirmar el email
+    </div>
+  </div>
+  <button [disabled]="usuario.invalid" type="submit">Sign up</button>
+</form>
